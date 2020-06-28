@@ -1,0 +1,1 @@
+xwallpaper --zoom $(find ~/storage/wal/*.{jpg,jpeg} -type f | shuf -n 1)

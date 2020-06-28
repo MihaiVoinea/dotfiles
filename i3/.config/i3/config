@@ -224,7 +224,7 @@ client.unfocused        $black2 $black2 #FFFFFF $black2   $black2
 client.urgent           $magenta1 $magenta1 #FFFFFF $magenta1   $magenta1
 
 # background
-exec --no-startup-id xwallpaper --zoom ~/storage/wal/wanderer_above_the_sea_of_fog.jpeg
+exec --no-startup-id ~/.scripts/random_wallpaper
 
 # Picom (Compton fork)
 exec --no-startup-id picom
