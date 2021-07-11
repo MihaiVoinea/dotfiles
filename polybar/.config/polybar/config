@@ -1,0 +1,477 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
+[colors]
+; black
+ black1 = ${xrdb:color0:#000000}
+ black2 = ${xrdb:color8:#666666}
+
+; red
+red1 = ${xrdb:color1:#cd3131}
+red2 = ${xrdb:color9:#f14c4c}
+
+; green
+green1 = ${xrdb:color2:#0dbc79}
+green2 = ${xrdb:color10:#23d18b}
+
+; yellow
+yellow1 = ${xrdb:color3:#e5e510}
+yellow2 = ${xrdb:color11:#f5f543}
+
+; blue
+blue1 = ${xrdb:color4:#2472c8}
+blue2 = ${xrdb:color12:#3b8eea}
+
+; magenta
+magenta1 = ${xrdb:color5:#bc3fbc}
+magenta2 = ${xrdb:color13:#d670d6}
+
+; cyan
+cyan1 = ${xrdb:color6:#11a8cd}
+cyan2 = ${xrdb:color14:#29b8db}
+
+; white
+white1 = ${xrdb:color7:#e5e5e5}
+white2 = ${xrdb:color15:#e5e5e5}
+
+; Brodie Robertson's background colors
+background = #1d1f21
+background-alt = #2d2d2d
+
+foreground = #ffffff
+foreground-alt = ${xrdb:foreground:#e9e9e9}
+
+primary = ${colors.blue1}
+secondary = ${colors.green1}
+alert = ${colors.red1}
+
+[bar/main]
+monitor = ${env:MONITOR:eDP-1}
+; monitor-fallback =
+; monitor-strict = false
+; monitor-exact = true
+# override-redirect = true
+wm-restack = i3
+; enable-ipc = true
+fixed-center = true
+bottom = false
+separator =
+#dim-value = 1.0
+
+width = 100%
+height = 31
+offset-x = 0
+offset-y = 0
+radius = 0.0
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #f00
+
+padding = 0
+module-margin = 1
+
+font-0 = Source Code Pro:fontformat=truetype:size=14;1
+font-1 = Font Awesome 5 Free:style=Solid:pixelsize=12;0
+font-2 = Font Awesome 5 Free:style=Regular:pixelsize=12;0
+font-3 = Font Awesome 5 Brands:pixelsize=12;0
+
+; Noto Emojis cause a 1px gap in modules for some reason
+; font-1 = Noto Color Emoji:scale=10;1
+
+modules-left = i3
+modules-center = 
+modules-right = filesystem wlan temperature cpu memory battery backlight pulseaudio date
+
+tray-position = right
+tray-padding = 1
+tray-background = ${colors.background-alt}
+tray-offset-x = 0
+tray-offset-y = 0
+tray-scale = 1.0
+
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[module/title]
+type = internal/xwindow
+label-maxlen = 30
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+; Only show workspaces on the same output as the bar
+pin-workspaces = true
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-background = ${colors.background-alt}
+label-focused-underline= ${colors.primary}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+; Separator in between workspaces
+; label-separator = |
+
+
+[module/mpd]
+type = internal/mpd
+format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+
+label-song-maxlen = 25
+label-song-ellipsis = true
+
+[module/battery]
+type = internal/battery
+
+; This is useful in case the battery never reports 100% charge
+full-at = 98
+
+; Use the following command to list batteries and adapters:
+; $ ls -1 /sys/class/power_supply/
+battery = BAT0
+adapter = ADP1
+
+; If an inotify event haven't been reported in this many
+; seconds, manually poll for new values.
+;
+; Needed as a fallback for systems that don't report events
+; on sysfs/procfs.
+;
+; Disable polling by setting the interval to 0.
+;
+; Default: 5
+poll-interval = 5
+
+; Formatting
+time-format = "%kh %Mm"
+
+format-charging = <animation-charging>  <label-charging>
+label-charging = "%percentage%%   %time%"
+
+label-full =   %percentage%%
+
+format-discharging = <ramp-capacity>  <label-discharging>
+label-discharging = "%percentage%%   %time%"
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 500
+
+format-charging-background = ${colors.background-alt}
+format-charging-underline = ${colors.secondary}
+format-charging-padding = 2
+
+format-full-background = ${colors.background-alt}
+format-full-underline = ${colors.green1}
+format-full-padding = 2
+
+format-discharging-background = ${colors.background-alt}
+format-discharging-underline = ${colors.primary}
+format-discharging-padding = 2
+
+[module/backlight]
+type = internal/backlight
+
+; Use the following command to list available cards:
+; $ ls -1 /sys/class/backlight/
+card = amdgpu_bl0
+
+
+
+enable-scroll = true
+
+; Available tags:
+;   <label> (default)
+;   <ramp>
+;   <bar>
+format =   <label>
+
+; Available tokens:
+;   %percentage% (default)
+label = %percentage%%
+
+format-background = ${colors.background-alt}
+format-underline = ${colors.primary}
+format-padding = 2
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+label =   %percentage%%
+format-background = ${colors.background-alt}
+format-padding = 2
+format-underline = ${colors.primary}
+
+[module/memory]
+type = internal/memory
+interval = 2
+label =   %percentage_used%%
+format-background = ${colors.background-alt}
+format-padding = 2
+format-underline = ${colors.primary}
+
+[module/wlan]
+type = internal/network
+interface = wlp3s0
+
+
+format-connected-background = ${colors.background-alt}
+format-connected-underline = ${colors.primary}
+format-connected-padding = 2
+
+format-connected = <ramp-signal>  <label-connected>
+label-connected = %essid%
+
+format-disconnected =   <label-disconnected>
+format-disconnected-underline = ${colors.alert}
+format-disconnected-background = ${colors.background-alt}
+format-disconnected-padding = 2
+label-disconnected = Disconnected
+label-disconnected-foreground = ${colors.foreground-alt}
+ramp-signal-0 = 
+
+[module/eth]
+type = internal/network
+interface = net0
+interval = 3.0
+
+format-connected-underline = #55aa55
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.foreground-alt}
+label-connected = %local_ip%
+
+format-disconnected =
+;format-disconnected = <label-disconnected>
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground-alt}
+
+[module/date]
+type = internal/date
+interval = 1
+
+date = "  %d %b. %Y"
+date-alt = "  %A, %d %B %Y"
+
+time = "  %I:%M %p"
+time-alt = "  %I:%M:%S %p"
+
+label = "%date%  %time%"
+
+
+format-background = ${colors.background-alt}
+format-underline = ${colors.primary}
+format-padding = 2
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+use-ui-max = false
+
+; Available tags:
+;   <label-volume> (default)
+;   <ramp-volume>
+;   <bar-volume>
+format-volume = <ramp-volume>  <label-volume>
+
+; Available tags:
+;   <label-muted> (default)
+;   <ramp-volume>
+;   <bar-volume>
+;format-muted = <label-muted>
+
+; Available tokens:
+;   %percentage% (default)
+;   %decibels%
+;label-volume = <ramp-volume> %percentage%%
+format-volume-background = ${colors.background-alt}
+format-volume-underline = ${colors.primary}
+format-volume-padding = 2
+
+; Available tokens:
+;   %percentage% (default)
+;   %decibels%
+format-muted =  Mute
+format-muted-background = ${colors.background-alt}
+format-muted-underline = ${colors.secondary}
+format-muted-padding = 2
+
+; Only applies if <ramp-volume> is used
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+; Right and Middle click
+click-right = pavucontrol
+; click-middle = 
+
+[module/alsa]
+type = internal/alsa
+
+format-volume = <label-volume> <bar-volume>
+label-volume = VOL
+label-volume-foreground = ${root.foreground}
+
+format-muted-prefix = " "
+format-muted-foreground = ${colors.foreground-alt}
+label-muted = sound muted
+
+bar-volume-width = 10
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt}
+
+[module/filesystem]
+type = internal/fs
+
+; Mountpoints to display
+mount-0 = /
+mount-1 = /home
+
+; Seconds to sleep between updates
+; Default: 30
+interval = 60
+
+; Display fixed precision values
+; Default: false
+fixed-values = false
+
+label-mounted =   %free% (%percentage_free%%)
+
+format-mounted-background = ${colors.background-alt}
+format-mounted-padding = 2
+format-mounted-underline = ${colors.primary}
+
+spacing = 0
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+
+format =  <label>
+format-background = ${colors.background-alt}
+format-padding = 2
+format-underline = ${colors.green1}
+
+format-warn-background = ${colors.background-alt}
+format-warn-padding = 2
+format-warn-underline = ${colors.alert}
+format-warn = <label-warn>
+
+label = "  %temperature-c%"
+label-warn = "  %temperature-c%"
+
+ramp-0 = 
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = true
+
+format-spacing = 1
+
+label-open = 
+label-open-foreground = ${colors.secondary}
+label-close =  cancel
+label-close-foreground = ${colors.secondary}
+label-separator = |
+label-separator-foreground = ${colors.foreground-alt}
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
+
+menu-1-0 = cancel
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
+menu-1-1-exec = sudo reboot
+
+menu-2-0 = power off
+menu-2-0-exec = sudo poweroff
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
+
+[settings]
+
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+; compositing-border = over
+;pseudo-transparency = false
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+; vim:ft=dosini
