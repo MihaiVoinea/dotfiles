@@ -98,7 +98,7 @@ font-3 = Font Awesome 5 Brands:pixelsize=12;0
 
 modules-left = i3
 modules-center = 
-modules-right = filesystem wlan temperature cpu memory battery backlight pulseaudio date
+modules-right = filesystem wlan-tp wlan-vb temperature cpu memory battery backlight-tp backlight-vb pulseaudio date
 
 tray-position = right
 tray-padding = 1
@@ -226,7 +226,32 @@ format-discharging-background = ${colors.background-alt}
 format-discharging-underline = ${colors.primary}
 format-discharging-padding = 2
 
-[module/backlight]
+[module/backlight-vb]
+type = internal/backlight
+
+; Use the following command to list available cards:
+; $ ls -1 /sys/class/backlight/
+card = intel_backlight
+
+
+
+enable-scroll = true
+
+; Available tags:
+;   <label> (default)
+;   <ramp>
+;   <bar>
+format =   <label>
+
+; Available tokens:
+;   %percentage% (default)
+label = %percentage%%
+
+format-background = ${colors.background-alt}
+format-underline = ${colors.primary}
+format-padding = 2
+
+[module/backlight-tp]
 type = internal/backlight
 
 ; Use the following command to list available cards:
@@ -267,9 +292,29 @@ format-background = ${colors.background-alt}
 format-padding = 2
 format-underline = ${colors.primary}
 
-[module/wlan]
+[module/wlan-tp]
 type = internal/network
 interface = wlp3s0
+
+
+format-connected-background = ${colors.background-alt}
+format-connected-underline = ${colors.primary}
+format-connected-padding = 2
+
+format-connected = <ramp-signal>  <label-connected>
+label-connected = %essid%
+
+format-disconnected =   <label-disconnected>
+format-disconnected-underline = ${colors.alert}
+format-disconnected-background = ${colors.background-alt}
+format-disconnected-padding = 2
+label-disconnected = Disconnected
+label-disconnected-foreground = ${colors.foreground-alt}
+ramp-signal-0 = 
+
+[module/wlan-vb]
+type = internal/network
+interface = wlo1
 
 
 format-connected-background = ${colors.background-alt}
