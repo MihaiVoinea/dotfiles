@@ -204,7 +204,7 @@ exec --no-startup-id nm-applet
 
 exec --no-startup-id picom
 
-exec --no-startup-id slack
+exec --no-startup-id obsidian
 
 exec --no-startup-id feh --bg-fill ~/pictures/wallpaper.png
 
