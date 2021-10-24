@@ -17,11 +17,11 @@
 """
 
 # Margin before and after a clip (in seconds)
-clip_margin = 0.4
+clip_margin = 1.0
 assert clip_margin >= 0.0
 
 # How loud should noise be to be considered a sound?
-audio_treshold = 0.01
+audio_treshold = 0.05
 assert audio_treshold > 0.0 and audio_treshold <= 1.0
 
 # Minimum clip length (in seconds)
@@ -30,7 +30,7 @@ min_clip_length = 0.2
 assert min_clip_length > 0.0
 
 # Minimum silence length to skip (in seconds)
-min_skip_length = 2.0
+min_skip_length = 2
 assert min_skip_length > 2 * clip_margin
 
 

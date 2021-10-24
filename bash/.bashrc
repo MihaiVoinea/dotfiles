@@ -21,7 +21,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 alias i3lock="i3lock -i ~/pictures/wallpaper.png"
-alias ytb="ytfzf -x && ytfzf -t --thumbnail-quality=0 --preview-side=right"
+alias ytb="ytfzf -x; ytfzf -t --thumbnail-quality=0 --preview-side=right"
 
 export EDITOR="vim"
 alias r="ranger"
