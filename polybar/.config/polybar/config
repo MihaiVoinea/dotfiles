@@ -117,6 +117,9 @@ cursor-scroll = ns-resize
 type = internal/xwindow
 label-maxlen = 30
 
+[module/keyboard]
+type = internal/xkeyboard
+
 [module/i3]
 type = internal/i3
 format = <label-state> <label-mode>
